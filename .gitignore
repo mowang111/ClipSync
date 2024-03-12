@@ -1,0 +1,5 @@
+build/
+clientlogger/
+dist/
+*.spec
+Client/ClientConfig.ini
