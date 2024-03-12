@@ -1,0 +1,9 @@
+[MQTT]
+address = xxxx
+port = xxxx
+topic_send = xxxx
+topic_receive = xxxx
+
+[Env]
+display = :1
+xauthority = /run/user/1000/gdm/Xauthority
