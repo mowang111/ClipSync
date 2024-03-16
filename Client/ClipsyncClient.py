@@ -67,6 +67,24 @@ def set_clipboard_windows(text):
     except Exception as e:
         print(f"设置剪贴板时发生错误: {e}")
 
+# macOS平台的剪贴板读取函数
+def get_clipboard_mac():
+    try:
+        # 使用pbpaste命令读取剪贴板内容
+        return subprocess.run(['pbpaste'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True).stdout.strip()
+    except Exception as e:
+        print(f"读取剪贴板时发生错误: {e}")
+        # 可以根据需要返回一个默认值或者None
+        return None
+
+# macOS平台的剪贴板设置函数
+def set_clipboard_mac(text):
+    try:
+        # 使用pbcopy命令设置剪贴板内容
+        subprocess.run(['pbcopy'], input=text, universal_newlines=True)
+    except Exception as e:
+        print(f"设置剪贴板时发生错误: {e}")
+
 # Linux平台的剪贴板读取函数
 def get_clipboard_linux():
     env = os.environ.copy()
@@ -159,6 +177,10 @@ if __name__ == '__main__':
         get_clipboard = get_clipboard_linux
         set_clipboard = set_clipboard_linux
         logger.info("linux platform")
+    elif sys.platform == 'darwin':  # macOS平台
+        get_clipboard = get_clipboard_mac
+        set_clipboard = set_clipboard_mac
+        logger.info("macOS platform")
     else:
         raise NotImplementedError("该平台不支持剪贴板操作。")
 
