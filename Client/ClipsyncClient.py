@@ -56,7 +56,7 @@ def get_clipboard_windows():
     try:
         return pyperclip.paste()
     except Exception as e:
-        print(f"读取剪贴板时发生错误: {e}")
+        logger.error(f"读取剪贴板时发生错误: {e}")
         # 可以根据需要返回一个默认值或者None
         return None
 
@@ -65,7 +65,7 @@ def set_clipboard_windows(text):
     try:
         pyperclip.copy(text)
     except Exception as e:
-        print(f"设置剪贴板时发生错误: {e}")
+        logger.error(f"设置剪贴板时发生错误: {e}")
 
 # macOS平台的剪贴板读取函数
 def get_clipboard_mac():
@@ -73,7 +73,7 @@ def get_clipboard_mac():
         # 使用pbpaste命令读取剪贴板内容
         return subprocess.run(['pbpaste'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True).stdout.strip()
     except Exception as e:
-        print(f"读取剪贴板时发生错误: {e}")
+        logger.error(f"读取剪贴板时发生错误: {e}")
         # 可以根据需要返回一个默认值或者None
         return None
 
@@ -83,7 +83,7 @@ def set_clipboard_mac(text):
         # 使用pbcopy命令设置剪贴板内容
         subprocess.run(['pbcopy'], input=text, universal_newlines=True)
     except Exception as e:
-        print(f"设置剪贴板时发生错误: {e}")
+        logger.error(f"设置剪贴板时发生错误: {e}")
 
 # Linux平台的剪贴板读取函数
 def get_clipboard_linux():
